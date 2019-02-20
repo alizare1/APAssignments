@@ -1,6 +1,9 @@
 #include <iostream>
 #include <vector>
 
+// *********** REMOVE THIS ***********
+#include <string>
+// *********** REMOVE THIS ***********
 
 #define RIGHT 0
 #define DOWN 1
@@ -40,6 +43,7 @@ void solve(const vector<vector<char>>& board) {
 }
 
 bool checkGame(vector<vector<char>> board, vector<string>& moves) {
+	printBoard(board);
 	if (checkWin(board)) {
 		cout << "Insane!" << endl;
 		return true;
@@ -56,6 +60,7 @@ bool checkGame(vector<vector<char>> board, vector<string>& moves) {
 							storeMoves(direction, row_num, col_num, moves);
 							return true;
 						}
+						temp = board;
 					}
 				}
 			}
