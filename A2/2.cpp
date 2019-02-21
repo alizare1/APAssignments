@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <string>
+
 
 using namespace std;
 
@@ -18,21 +20,44 @@ bool checkWord(string word){
     return false;
 }
 
-vector<string> sh(string str, string word, int i, vector<string> vec){  // it is shit, doesnt work.
-    if(i == str.length())
-        return vec;
-    word += str[i];
-    if(checkWord(word)){
-        vec.push_back(word);
-        word = "";
-    }
-    return sh(str, word, i + 1, vec);
+bool divideWords(string str, int from, vector<string>& sentence){  
+	string word = "";
+	int index = from;
+	if (from == str.length())
+		return true;
+	while (index < str.length()){
+		word += str[index++];
+		if (checkWord(word)) {
+			if (divideWords(str, index, sentence)) {
+				sentence.insert(sentence.begin(), word);
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+void findAswers(string input, int length, string sentence) {
+	for (int i = 1; i <= length; i++) {
+		string word = input.substr(0, i);
+		if (checkWord(word)) {
+			if (i == length) {
+				sentence += word;
+				cout << sentence << endl;
+				return;
+			}
+			findAswers(input.substr(i, length - i), length - i, sentence + word + " ");
+		}
+	}
 }
 
 int main(){
-    vector<string> a;
-    sh("iwanticecream", "", 0, a);
-    for(int i = 0; i < a.size(); i++)
-        cout << a[i] << endl;
+	vector<string> sentence;
+	string input;
+	cin >> input;
+	divideWords(input, 0, sentence);
+    for(int i = 0; i < sentence.size(); i++)
+        cout << sentence[i] << endl;
+	findAswers(input, input.length(), "");
     return 0;
 }
