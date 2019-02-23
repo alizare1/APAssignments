@@ -1,9 +1,6 @@
 #include <iostream>
 #include <vector>
 
-// *********** REMOVE THIS ***********
-#include <string>
-// *********** REMOVE THIS ***********
 
 #define RIGHT 0
 #define DOWN 1
@@ -43,7 +40,6 @@ void solve(const vector<vector<char>>& board) {
 }
 
 bool checkGame(vector<vector<char>> board, vector<string>& moves) {
-	printBoard(board);
 	if (checkWin(board)) {
 		cout << "Insane!" << endl;
 		return true;
@@ -72,7 +68,7 @@ bool checkGame(vector<vector<char>> board, vector<string>& moves) {
 }
 
 void printMoves(const vector<string>& moves) {
-	for (int i = moves.size() - 1; i >= 0 ; i--) 
+	for (int i = moves.size() - 1; i >= 0 ; i--)
 		cout << moves[i] << endl;
 }
 
