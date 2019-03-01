@@ -3,12 +3,13 @@
 #include <fstream>
 #include <string>
 
+#define DICTIONARY "words.txt"
 
 using namespace std;
 
 bool checkWord(string word){
     ifstream file;
-    file.open("words.txt");
+    file.open(DICTIONARY);
     string line;
     while(getline(file, line)){
         if(word == line){
@@ -20,24 +21,7 @@ bool checkWord(string word){
     return false;
 }
 
-bool divideWords(string str, int from, vector<string>& sentence){  
-	string word = "";
-	int index = from;
-	if (from == str.length())
-		return true;
-	while (index < str.length()){
-		word += str[index++];
-		if (checkWord(word)) {
-			if (divideWords(str, index, sentence)) {
-				sentence.insert(sentence.begin(), word);
-				return true;
-			}
-		}
-	}
-	return false;
-}
-
-void findAswers(string input, int length, string sentence) {
+void findAnswers(string input, int length, string sentence) {
 	for (int i = 1; i <= length; i++) {
 		string word = input.substr(0, i);
 		if (checkWord(word)) {
@@ -46,18 +30,16 @@ void findAswers(string input, int length, string sentence) {
 				cout << sentence << endl;
 				return;
 			}
-			findAswers(input.substr(i, length - i), length - i, sentence + word + " ");
+			findAnswers(input.substr(i, length - i), length - i, sentence + word + " ");
 		}
 	}
 }
 
 int main(){
-	vector<string> sentence;
 	string input;
-	cin >> input;
-	divideWords(input, 0, sentence);
-    for(int i = 0; i < sentence.size(); i++)
-        cout << sentence[i] << endl;
-	findAswers(input, input.length(), "");
+	while(cin >> input){
+	       findAnswers(input, input.length(), "");
+           cout << "***" << endl;
+    }
     return 0;
 }
