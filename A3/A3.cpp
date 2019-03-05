@@ -3,7 +3,6 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <array>
 #include <fstream>
 
 #define DAY_PIECES 28
