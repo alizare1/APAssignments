@@ -6,7 +6,7 @@
 #include <array>
 #include <fstream>
 
-#define COURSES_CSV "courses.csv"
+#define COURSES_CSV "courses.csv" // COMMAND LINE ARG!
 
 using namespace std;
 
@@ -34,15 +34,19 @@ void addCourseToDay(Day& day, const pair<int, int>& timeRange, string courseName
 void addNewTableToDay(Day& day);
 bool canCourseBeAdded(const TimeTable& table, int start, int end);
 void addCourseToTable(TimeTable& table, int start, int end, string courseName);
-
+void printProgram(Week);
 
 int main() {
 	map<string, int> days_of_week = {{"SAT", SAT}, {"SUN", SUN}, {"MON", MON}, {"TUE", TUE}, {"WED", WED}, {"THU", THU}, {"FRI", FRI}};
 	map<string, string> coursesNames = createCourseList();
 	Week week(7);
 	addCoursesToWeek(coursesNames, days_of_week, week);
-	cout << week[SUN][1][7] << endl;
+	printProgram(week);
 	return 0;
+}
+
+printProgram(Week week){
+	;
 }
 
 pair<string, string> seperateIDnAlias(string str) {
@@ -91,7 +95,7 @@ void addCoursesToWeek(const map<string, string>& coursesNames, const map<string,
 }
 
 void addCourseToDay(Day& day, const pair<int, int>& timeRange, string courseName) {
-	if (day.empty()) 
+	if (day.empty())
 		addNewTableToDay(day);
 	for (int tableNO = day.size() - 1; tableNO >= 0; tableNO--) {
 		if (canCourseBeAdded(day[tableNO], timeRange.first, timeRange.second)) {
@@ -144,5 +148,3 @@ pair<int, int> whichTimeRange(string time) {
 		end++;
 	return{ start, end };
 }
-
-
