@@ -65,8 +65,8 @@ vector<string> getInput() {
 }
 
 void printProgram(const Week& week, string progName){
-	map<int, string> daysFullName = { 
-		{SAT, "Saturday"}, {SUN, "Sunday"}, {MON, "Monday"}, {TUE, "Tuesday"}, {WED, "Wednesday"}, {THU, "Thursday"}, {FRI, "Friday"} 
+	map<int, string> daysFullName = {
+		{SAT, "Saturday"}, {SUN, "Sunday"}, {MON, "Monday"}, {TUE, "Tuesday"}, {WED, "Wednesday"}, {THU, "Thursday"}, {FRI, "Friday"}
 	};
 	cout << "# " << progName << endl << endl;
 	for (int day = SAT; day <= FRI; day++) {
@@ -83,16 +83,16 @@ void printProgram(const Week& week, string progName){
 
 void printTimeLine() {
 	for (int h = 7; h <= 9; h++) {
-		cout << '0' << h << ":00     ";
-		cout << '0' << h << ":30     ";
+		cout << '0' << h << setfill(' ') << setw(8) << left << ":00";
+		cout << '0' << h << setfill(' ') << setw(8) << left << ":30";
 	}
 	for (int h = 10; h <= 20; h++) {
-		cout << h << ":00     ";
+		cout << h << setfill(' ') << setw(8) << left << ":00";
 		if (h == 20) {
 			cout << h << ":30";
 			break;
 		}
-		cout << h << ":30     ";
+		cout << h << setfill(' ') << setw(8) << left << ":30";
 	}
 	cout << endl;
 	for (int i = 0; i < 275; i++)
@@ -166,7 +166,7 @@ void printCentered(string str, int courseLength) {
 pair<string, string> seperateIDnAlias(string str) {
 	int comma_index = str.find(',');
 	string id = str.substr(0, comma_index);
-	string alias = str.substr(comma_index + 1, str.length() - 1);
+	string alias = str.substr(comma_index + 1);
 	return{ id, alias };
 }
 
@@ -212,27 +212,27 @@ void addCoursesToWeek(const vector<string>& input, const map<string, string>& co
 }
 
 int findCoursePlace(const Day& day, const pair<int, int>& timeRange) {
-	int dayPiece = day.size() - 1;
-	while (dayPiece > 0) {
-		if (canCourseBeAdded(day[dayPiece], timeRange.first, timeRange.second)) {
-			if (!canCourseBeAdded(day[dayPiece - 1], timeRange.first, timeRange.second))
-				return dayPiece;
+	int table = day.size() - 1;
+	while (table > 0) {
+		if (canCourseBeAdded(day[table], timeRange.first, timeRange.second)) {
+			if (!canCourseBeAdded(day[table - 1], timeRange.first, timeRange.second))
+				return table;
 		}
 		else
 			return NOWHERE;
-		dayPiece--;
+		table--;
 	}
-	if (canCourseBeAdded(day[dayPiece], timeRange.first, timeRange.second))
-		return dayPiece;
+	if (canCourseBeAdded(day[table], timeRange.first, timeRange.second))
+		return table;
 	return NOWHERE;
 }
 
 void addCourseToDay(Day& day, const pair<int, int>& timeRange, string courseName) {
 	if (day.empty())
 		addNewTableToDay(day);
-	int dayPiece = findCoursePlace(day, timeRange);
-	if(dayPiece != NOWHERE)
-		addCourseToTable(day[dayPiece], timeRange.first, timeRange.second, courseName);
+	int table = findCoursePlace(day, timeRange);
+	if(table != NOWHERE)
+		addCourseToTable(day[table], timeRange.first, timeRange.second, courseName);
 	else {
 		addNewTableToDay(day);
 		addCourseToTable(day[day.size() - 1], timeRange.first, timeRange.second, courseName);
