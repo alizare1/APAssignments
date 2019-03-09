@@ -95,7 +95,7 @@ void printTimeLine() {
 		cout << h << setfill(' ') << setw(8) << left << ":30";
 	}
 	cout << endl;
-	cout << setfill('_') << setw(275);
+	cout << setfill('_') << setw(275) << "";
 	cout << endl;
 }
 
