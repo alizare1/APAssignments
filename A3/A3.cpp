@@ -8,6 +8,8 @@
 #define DAY_PIECES 28
 #define WEEK_DAYS 7
 #define NOWHERE -1
+#define PRINT_BOARDER 1
+#define PRINT_NAME 2
 
 using namespace std;
 
@@ -38,10 +40,9 @@ void addCourseToTable(TimeTable& table, int start, int end, string courseName);
 void printProgram(const Week&, string);
 void printTimeLine();
 int getLastCourseInTable(const TimeTable& table);
-void printCoursesBorder(const TimeTable& table);
 void printCentered(string str, int courseLength);
-void printCoursesNames(const TimeTable& table);
 vector<string> getInput();
+void printCouresNamesnBorder(const TimeTable& table, int action);
 
 int main(int argc, char* argv[]) {
 	if (argc < 3) {
@@ -73,9 +74,12 @@ void printProgram(const Week& week, string progName){
 		cout << "## " << daysFullName[day] << endl << endl;
 		printTimeLine();
 		for (int table = 0; table < week[day].size(); table++) {
-			printCoursesBorder(week[day][table]);
-			printCoursesNames(week[day][table]);
-			printCoursesBorder(week[day][table]);
+			// printCoursesBorder(week[day][table]);
+			// printCoursesNames(week[day][table]);
+			// printCoursesBorder(week[day][table]);
+			printCouresNamesnBorder(week[day][table], PRINT_BOARDER);
+			printCouresNamesnBorder(week[day][table], PRINT_NAME);
+			printCouresNamesnBorder(week[day][table], PRINT_BOARDER);
 		}
 		cout << endl;
 	}
@@ -95,7 +99,7 @@ void printTimeLine() {
 		cout << h << setfill(' ') << setw(8) << left << ":30";
 	}
 	cout << endl;
-	cout << setfill('_') << setw(275);
+	cout << setfill('_') << setw(275) << "";
 	cout << endl;
 }
 
@@ -107,29 +111,7 @@ int getLastCourseInTable(const TimeTable& table) {
 	return 0;
 }
 
-void printCoursesBorder(const TimeTable& table) {
-cout << setfill(' ') << setw(2) << "";
-int dayPiece = 0;
-while (dayPiece <= getLastCourseInTable(table)) {
-	int courseLength = 0;
-	string prevDayPiece;
-	if (table[dayPiece] != "") {
-		prevDayPiece = table[dayPiece];
-		while (table[dayPiece] == prevDayPiece) {
-			courseLength++;
-			dayPiece++;
-		}
-		cout << setfill('-') << setw(10 * courseLength - 1) << left << '+' << right << '+';
-	}
-	else {
-		cout << setfill(' ') << setw(10) << "";
-		dayPiece++;
-	}
-}
-cout << endl;
-}
-
-void printCoursesNames(const TimeTable& table) {
+void printCouresNamesnBorder(const TimeTable& table, int action) {
 	cout << setfill(' ') << setw(2) << "";
 	int dayPiece = 0;
 	while (dayPiece <= getLastCourseInTable(table)) {
@@ -141,7 +123,10 @@ void printCoursesNames(const TimeTable& table) {
 				courseLength++;
 				dayPiece++;
 			}
-			printCentered(prevDayPiece, courseLength);
+			if(action == PRINT_NAME)
+				printCentered(prevDayPiece, courseLength);
+			else if(action == PRINT_BOARDER)
+				cout << setfill('-') << setw(10 * courseLength - 1) << left << '+' << right << '+';
 		}
 		else {
 			cout << setfill(' ') << setw(10) << "";
@@ -149,7 +134,6 @@ void printCoursesNames(const TimeTable& table) {
 		}
 	}
 	cout << endl;
-
 }
 
 void printCentered(string str, int courseLength) {
