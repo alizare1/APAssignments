@@ -8,11 +8,15 @@
 #include "Thread.h"
 
 #define COMMAND 0
+#define ADD_CORE "add_core"
+#define SHOW_CORES_STAT "show_cores_stat"
+#define RUN_CORES "run_cores"
+#define FINISH_TASKS "finish_tasks"
+#define ADD_PROCESS "add_process"
 
 using namespace std;
 
 vector<string> tokenize(string line);
-void addProcess(const CPU& cpu, vector<string> input, int lastID);
 vector<int> createTimeSliceVector(vector<string> input);
 
 int main() {
@@ -21,15 +25,15 @@ int main() {
 	int lastProcessID = 0;
 	while (getline(cin, input)) {
 		vector<string> tokenizedInput = tokenize(input);
-		if (tokenizedInput[COMMAND] == "add_core")
+		if (tokenizedInput[COMMAND] == ADD_CORE)
 			cpu.addCore();
-		else if (tokenizedInput[COMMAND] == "show_cores_stat")
+		else if (tokenizedInput[COMMAND] == SHOW_CORES_STAT)
 			cpu.showCoresStat();
-		else if (tokenizedInput[COMMAND] == "run_cores")
+		else if (tokenizedInput[COMMAND] == RUN_CORES)
 			cpu.runCores();
-		else if (tokenizedInput[COMMAND] == "finish_tasks")
+		else if (tokenizedInput[COMMAND] == FINISH_TASKS)
 			cpu.finishTasks();
-		else if (tokenizedInput[COMMAND] == "add_process") 
+		else if (tokenizedInput[COMMAND] == ADD_PROCESS) 
 			cpu.addProcess(createTimeSliceVector(tokenizedInput));
 	}
 	return 0;
