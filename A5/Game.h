@@ -5,12 +5,13 @@
 #include <vector>
 #include <iostream>
 #include "Map.h"
-// #include "Objects.h"
+#include "Objects.h"
+#include "blockSize.h"
 
-#define BLOCK_SIZE 40
 #define GAME_NAME "Super Mario"
-#define BACKGROUND "assets/background_image.png"
-#define BACKGROUND_HEIGHT 1000
+#define BACKGROUND "assets/background_image.png" // move screen
+#define BACKGROUND_HEIGHT 1000 // move screen
+#define BACKGROUND_WIDTH 2000 // move screen
 
 
 class Mario;
@@ -23,15 +24,17 @@ public:
 
 private:
     void drawScreen();
-    void setBackground();
+    void setBackground(); // move to screen
     void processEvents();
     void updateObjects();
+    void updateOffSet();
 
     Mario* mario;
-    // Objects objects;
-    Window* win;
-    int winOffset;
-    bool runn;
+    Objects objects;
+    Window* win; // move to screen
+    int winOffset; // move to screen ?
+    int backgroundOffset; // move screen
+    bool quit;
 
 };
 

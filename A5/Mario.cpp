@@ -1,13 +1,42 @@
 #include "Mario.h"
+#include <iostream>
+using namespace std;
 
 
 Mario::Mario(Point pos): topLeftPos(pos) {
-    
+
 }
 
 void Mario::draw(Window* win, int winOffset) {
-    win->fill_circle(topLeftPos, 20);
-    // win->draw_img(MARIO_STANDING_RIGHT,
-    //  Rectangle(topLeftPos.x - winOffset, topLeftPos.y, 
-    //   topLeftPos.x - winOffset + BLOCK_SIZE, topLeftPos.y + BLOCK_SIZE));
+    win->draw_img(MARIO_NORMAL_STAND_R,
+     Rectangle(topLeftPos.x - winOffset, topLeftPos.y,
+      BLOCK_SIZE, BLOCK_SIZE));
+}
+
+void Mario::handleKeyPress(char key) {
+    switch (key) {
+        case 'd':
+            vx = X_SPEED;
+            break;
+    }
+}
+
+void Mario::handleKeyRelease(char key) {
+    switch (key) {
+        case 'd':
+            vx = 0;
+            break;
+    }
+}
+
+void Mario::update(){
+    topLeftPos.x += vx;
+}
+
+Point Mario::getPosition() {
+    return topLeftPos;
+}
+
+int Mario::getXSpeed() {
+    return X_SPEED;
 }

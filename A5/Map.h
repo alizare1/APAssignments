@@ -6,7 +6,7 @@
 #include <iostream>
 #include "rsdl.hpp"
 #include "Game.h"
-// #include "Objects.h"
+#include "Objects.h"
 #include "Mario.h"
 
 #define MARIO 'M'
@@ -18,25 +18,26 @@
 #define RED_MUSHROOM_BLOCK 'm'
 #define HEALTH_BLOCK 'h'
 #define GROUND_BLOCK '#'
-#define NORMAL_BLOCK '@' 
+#define NORMAL_BLOCK '@'
 
 class Game;
 
 class Map {
 public:
-    Map(Game* _game);//, Objects* _objects);
+    Map(Game* _game, Objects* _objects);
     void getMap();
     void initGameSetup();
     int getMapHeight();
 
 private:
-    void processMapRow(std::vector<char> mapRow, int row); 
-    void processChar(char c, Point pos); 
+    void processMapRow(std::vector<char>& mapRow, int row);
+    void processChar(char c, Point pos);
     int findPipeHeight(int headRow, int headCol);
+    void clearPipe(int headRow, int headCol);
     int findFlagHeight(int headRow, int headCol);
 
     std::vector<std::vector<char>> map;
-    // Objects* objects;
+    Objects* objects;
     Game* game;
 };
 
