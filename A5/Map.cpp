@@ -47,6 +47,12 @@ void Map::processChar(char c, Point pos) {
             objects->addNormalBlock(normalBlock);
         }
         break;
+        case NORMAL_BLOCK: {
+            NormalBlock* normalBlock = new NormalBlock(pixelPos,
+                NORMAL_BLOCK);
+            objects->addNormalBlock(normalBlock);
+        }
+        break;
     }
 }
 
