@@ -4,21 +4,24 @@
 #include "rsdl.hpp"
 #include <vector>
 #include <iostream>
+#include <string>
 #include "Map.h"
 #include "Objects.h"
 #include "blockSize.h"
+
 
 #define GAME_NAME "Super Mario"
 #define BACKGROUND "assets/background_image.png" // move screen
 #define BACKGROUND_HEIGHT 1000 // move screen
 #define BACKGROUND_WIDTH 2000 // move screen
 
+// collision handler with all coords.
 
 class Mario;
 
-class Game{
+class Game {
 public:
-    Game();
+    Game(std::string mapAdress);
     void run();
     void setMario(Mario* _mario);
 

@@ -5,6 +5,7 @@
 #include "blockSize.h"
 
 #define X_SPEED 14
+#define X_ACCELERATION 5
 
 #define MARIO_NORMAL_STAND_R "assets/sprites/mario/normal/standing-right.png"
 #define MARIO_NORMAL_WALK_R_1 "assets/sprites/mario/normal/walking-right-1.png"
@@ -22,6 +23,8 @@ public:
     int getXSpeed();
 
 private:
+    void moveRight();
+    void stopRight();
 
     Point topLeftPos;
     int vx;

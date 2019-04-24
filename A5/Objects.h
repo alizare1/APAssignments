@@ -12,14 +12,16 @@
 
 class Objects {
 public:
-    void addPipe(Pipe* pipe);
-    void addFlag(Flag* _flag);
-    void addNormalBlock(NormalBlock* normalBlock);
-    void draw(Window* win, int winOffset);
+    void addPipe (Pipe* pipe);
+    void addFlag (Flag* _flag);
+    void addNormalBlock (NormalBlock* normalBlock);
+    void addQuestionBlock (QuestionBlock* qBlock);
+    void draw (Window* win, int winOffset);
 
 private:
     void drawNormalBlocks(Window* win, int winOffset);
     void drawPipes(Window* win, int winOffset);
+    void drawFlag(Window* win, int winOffset);
 
     std::vector<Pipe*> pipes;
     std::vector<KoopaTroopa*> koopas;

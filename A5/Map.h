@@ -4,10 +4,16 @@
 #include <vector>
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <cstring>
 #include "rsdl.hpp"
 #include "Game.h"
 #include "Objects.h"
 #include "Mario.h"
+#include "QuestionBlock.h"
+#include "LittleGoomba.h"
+#include "KoopaTroopa.h"
 
 #define MARIO 'M'
 #define PIPE '|'
@@ -25,7 +31,7 @@ class Game;
 class Map {
 public:
     Map(Game* _game, Objects* _objects);
-    void getMap();
+    void getMap(std::string mapAdress);
     void initGameSetup();
     int getMapHeight();
 
@@ -35,6 +41,7 @@ private:
     int findPipeHeight(int headRow, int headCol);
     void clearPipe(int headRow, int headCol);
     int findFlagHeight(int headRow, int headCol);
+    void clearFlag (int headRow, int headCol);
 
     std::vector<std::vector<char>> map;
     Objects* objects;

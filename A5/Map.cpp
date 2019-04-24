@@ -7,8 +7,26 @@ Map::Map(Game* _game, Objects* _objects) {
     objects = _objects;
 }
 
+
+
+void Map::getMap(string mapAdress) {
+    ifstream *mapFile = new ifstream("1.txt");
+    mapFile->open("1.txt");
+    mapFile->close();
+    getMapp();
+    mapFile-> close();
+    string line;
+    while (getline(cin, line)) {
+        map.push_back(vector<char>());
+        for(int i = 0; i < line.length(); i++) {
+            map[map.size() - 1].push_back(line[i]);
+        }
+    }
+    // mapFile->close();
+}
+
 void Map::initGameSetup() {
-    for(int row = 0; row < map.size(); row++){
+    for(int row = 0; row < map.size(); row++) {
         processMapRow(map[row], row);
     }
 }
@@ -39,6 +57,7 @@ void Map::processChar(char c, Point pos) {
             Flag* flag = new Flag(pixelPos,
                 findFlagHeight(pos.y, pos.x));
             objects->addFlag(flag);
+            clearFlag(pos.y, pos.x);
         }
         break;
         case GROUND_BLOCK: {
@@ -53,16 +72,10 @@ void Map::processChar(char c, Point pos) {
             objects->addNormalBlock(normalBlock);
         }
         break;
-    }
-}
-
-void Map::getMap() {
-    string line;
-    int k = 0;
-    while(getline(cin, line)) {
-        map.push_back(vector<char>());
-        for(int i = 0; i < line.length(); i++){
-            map[map.size() - 1].push_back(line[i]);
+        case COIN_BLOCK: {
+            QuestionBlock* coinBlock = new QuestionBlock(pixelPos,
+                COIN_BLOCK);
+            objects->addQuestionBlock(coinBlock);
         }
     }
 }
@@ -97,6 +110,12 @@ int Map::findFlagHeight(int headRow, int headCol){
             break;
     }
     return height;
+}
+
+void Map::clearFlag (int headRow, int headCol) {
+    int height = findFlagHeight(headRow, headCol);
+    for (int i = 0; i < height; i++)
+        map[headRow + i][headCol] = EMPTY;
 }
 
 int Map::getMapHeight(){

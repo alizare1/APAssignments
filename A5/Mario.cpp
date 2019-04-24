@@ -4,7 +4,7 @@ using namespace std;
 
 
 Mario::Mario(Point pos): topLeftPos(pos) {
-
+    ay = X_ACCELERATION;
 }
 
 void Mario::draw(Window* win, int winOffset) {
@@ -16,7 +16,10 @@ void Mario::draw(Window* win, int winOffset) {
 void Mario::handleKeyPress(char key) {
     switch (key) {
         case 'd':
-            vx = X_SPEED;
+            moveRight();
+            break;
+        case 'a':
+            vx = -X_SPEED;
             break;
     }
 }
@@ -26,7 +29,18 @@ void Mario::handleKeyRelease(char key) {
         case 'd':
             vx = 0;
             break;
+        case 'a':
+            vx = 0;
+            break;
     }
+}
+
+void Mario::moveRight() {
+    vx = X_SPEED;
+}
+
+void Mario::stopRight() {
+    vx = 0;
 }
 
 void Mario::update(){

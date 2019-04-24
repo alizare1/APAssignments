@@ -2,10 +2,10 @@
 
 using namespace std;
 
-Game::Game() {
+Game::Game(string mapAdress) {
     objects = Objects();
     Map map(this, &objects);
-    map.getMap();
+    map.getMap(mapAdress);
     map.initGameSetup();
     win = new Window((map.getMapHeight() + 10) * BLOCK_SIZE,
        map.getMapHeight() * BLOCK_SIZE, GAME_NAME);
@@ -13,12 +13,12 @@ Game::Game() {
     quit = false;
 }
 
-void Game::run(){
+void Game::run() {
     while(!quit) {
         processEvents();
         updateObjects();
         drawScreen();
-        delay(50);
+        delay(10);
     }
 }
 
