@@ -19,8 +19,9 @@ class NormalBlock {
 public:
     NormalBlock(Point pos, char _type);
     void draw(Window* win, int winOffset);
+    Rectangle* getPositionPointer();
 private:
-    Point position;
+    Rectangle position;
     char type;
 };
 

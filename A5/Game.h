@@ -5,40 +5,41 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Map.h"
+#include "CollisionHandler.h"
 #include "Objects.h"
+#include "Camera.h"
+#include "Mario.h"
 #include "blockSize.h"
 
-
+#define WINDOW_WIDTH 30
 #define GAME_NAME "Super Mario"
-#define BACKGROUND "assets/background_image.png" // move screen
-#define BACKGROUND_HEIGHT 1000 // move screen
-#define BACKGROUND_WIDTH 2000 // move screen
-
-// collision handler with all coords.
 
 class Mario;
 
 class Game {
 public:
-    Game(std::string mapAdress);
+    Game(std::string mapAddress);
     void run();
     void setMario(Mario* _mario);
+    void resetOffset();
+    int getWinHeight();
+    int getWinOffset();
+    void lose();
+    void win();
 
 private:
-    void drawScreen();
-    void setBackground(); // move to screen
+    void drawScreen(int step);
     void processEvents();
     void updateObjects();
-    void updateOffSet();
 
     Mario* mario;
-    Objects objects;
-    Window* win; // move to screen
-    int winOffset; // move to screen ?
-    int backgroundOffset; // move screen
-    bool quit;
-
+    Objects* objects;
+    CollisionHandler* collisionHandler;
+    Camera* camera;
+    int gameStep;
+    bool gameRunning;
 };
 
 #endif

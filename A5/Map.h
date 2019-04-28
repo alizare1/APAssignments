@@ -6,12 +6,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <cstring>
 #include "rsdl.hpp"
 #include "Game.h"
 #include "Objects.h"
 #include "Mario.h"
 #include "QuestionBlock.h"
+#include "BrickBlock.h"
 #include "LittleGoomba.h"
 #include "KoopaTroopa.h"
 
@@ -25,15 +25,17 @@
 #define HEALTH_BLOCK 'h'
 #define GROUND_BLOCK '#'
 #define NORMAL_BLOCK '@'
+#define KOOPA_TROOPA 'k'
+#define LITTLE_GOOMBA 'l'
 
 class Game;
 
 class Map {
 public:
     Map(Game* _game, Objects* _objects);
-    void getMap(std::string mapAdress);
     void initGameSetup();
     int getMapHeight();
+    void readMap(std::string mapAddress);
 
 private:
     void processMapRow(std::vector<char>& mapRow, int row);

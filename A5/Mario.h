@@ -3,34 +3,63 @@
 
 #include "rsdl.hpp"
 #include "blockSize.h"
+#include <array>
+#include <string>
+#include "Gravity.h"
+#include "Game.h"
+#include "MarioDefines.h"
 
-#define X_SPEED 14
-#define X_ACCELERATION 5
-
-#define MARIO_NORMAL_STAND_R "assets/sprites/mario/normal/standing-right.png"
-#define MARIO_NORMAL_WALK_R_1 "assets/sprites/mario/normal/walking-right-1.png"
-#define MARIO_NORMAL_WALK_R_2 "assets/sprites/mario/normal/walking-right-2.png"
-#define MARIO_NORMAL_WALK_R_3 "assets/sprites/mario/normal/walking-right-3.png"
+class Game;
 
 class Mario {
 public:
-    Mario(Point pos);
-    void draw(Window* win, int winOffset);
+    Mario(Point pos, Game* _game);
+    void draw(Window* win, int winOffset, int step);
     void handleKeyPress(char key);
     void handleKeyRelease(char key);
     void update();
     Point getPosition();
-    int getXSpeed();
+    Rectangle* getPositionPointer();
+    int getVx();
+    int getVy();
+    void setVx(int _vx);
+    void setVy(int _vy);
+    bool* getDownCollisionPointer();
+    void die();
+    int getVictoryStatus();
+    bool isAlive();
+    void eatMushroom();
+    void addCoin();
+    bool isMarioNormal();
 
 private:
-    void moveRight();
-    void stopRight();
+    void drawHeader(Window* win);
+    bool isWalking();
+    bool isSliding();
+    void revive();
+    void dPress();
+    void aPress();
+    bool shouldRevive();
+    void updateVx();
+    bool hasFallenDown();
+    void preventGoingLeft();
 
-    Point topLeftPos;
+    Game* game;
+    bool big;
+    Rectangle position;
+    Rectangle initialPosition;
+    int livesCount;
+    int coinsCount;
     int vx;
     int vy;
     int ay;
     int ax;
+    bool faceRight;
+    bool collidesDown;
+    bool aReleased;
+    bool dReleased;
+    int dead;
+    int frameDelay;
 };
 
 #endif

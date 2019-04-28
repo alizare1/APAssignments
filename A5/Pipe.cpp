@@ -2,7 +2,12 @@
 #include <iostream>
 
 Pipe::Pipe(Point headLeftPos, int _height)
-    :headLeftPosition(headLeftPos), height(_height) {
+    :position(headLeftPos, 2 * BLOCK_SIZE, _height * BLOCK_SIZE),
+     height(_height) {
+}
+
+Rectangle* Pipe::getPositionPointer() {
+    return &position;
 }
 
 void Pipe::draw(Window* win, int winOffset) {
@@ -12,21 +17,29 @@ void Pipe::draw(Window* win, int winOffset) {
 }
 
 void Pipe::drawHead(Window* win, int winOffset) {
-    win->draw_img(PIPE_HEAD_L,
-        Rectangle(headLeftPosition.x - winOffset, headLeftPosition.y,
-        BLOCK_SIZE, BLOCK_SIZE));
-    win->draw_img(PIPE_HEAD_R,
-        Rectangle(headLeftPosition.x - winOffset + BLOCK_SIZE, headLeftPosition.y,
-        BLOCK_SIZE, BLOCK_SIZE));
+    win->draw_img(
+        PIPE_HEAD_L,
+        Rectangle(position.x - winOffset, position.y,
+            BLOCK_SIZE, BLOCK_SIZE)
+    );
+    win->draw_img(
+        PIPE_HEAD_R,
+        Rectangle(position.x - winOffset + BLOCK_SIZE, position.y,
+            BLOCK_SIZE, BLOCK_SIZE)
+    );
 }
 
 void Pipe::drawBody(Window* win,int winOffset) {
     for (int i = 1; i < height; i++) {
-        win->draw_img(PIPE_BODY_L,
-            Rectangle(headLeftPosition.x - winOffset, headLeftPosition.y + i * BLOCK_SIZE,
-            BLOCK_SIZE, BLOCK_SIZE));
-        win->draw_img(PIPE_BODY_R,
-            Rectangle(headLeftPosition.x - winOffset + BLOCK_SIZE, headLeftPosition.y + i * BLOCK_SIZE,
-            BLOCK_SIZE, BLOCK_SIZE));
+        win->draw_img(
+            PIPE_BODY_L,
+            Rectangle(position.x - winOffset, position.y + i * BLOCK_SIZE,
+                BLOCK_SIZE, BLOCK_SIZE)
+        );
+        win->draw_img(
+            PIPE_BODY_R,
+            Rectangle(position.x - winOffset + BLOCK_SIZE, position.y + i * BLOCK_SIZE,
+                BLOCK_SIZE, BLOCK_SIZE)
+        );
     }
 }

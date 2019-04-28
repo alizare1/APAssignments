@@ -16,7 +16,7 @@ private:
     void drawHead(Window* win, int winOffset);
     void drawBody(Window* win, int winOffset);
 
-    Point headPosition;
+    Rectangle position;
     int height;
 };
 

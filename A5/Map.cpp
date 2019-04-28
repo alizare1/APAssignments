@@ -7,22 +7,17 @@ Map::Map(Game* _game, Objects* _objects) {
     objects = _objects;
 }
 
-
-
-void Map::getMap(string mapAdress) {
-    ifstream *mapFile = new ifstream("1.txt");
-    mapFile->open("1.txt");
-    mapFile->close();
-    getMapp();
-    mapFile-> close();
+void Map::readMap(string mapAddress) {
+    ifstream file;
+    file.open(mapAddress);
     string line;
-    while (getline(cin, line)) {
+    while(getline(file, line)) {
         map.push_back(vector<char>());
         for(int i = 0; i < line.length(); i++) {
             map[map.size() - 1].push_back(line[i]);
         }
     }
-    // mapFile->close();
+    file.close();
 }
 
 void Map::initGameSetup() {
@@ -42,7 +37,7 @@ void Map::processChar(char c, Point pos) {
         , pos.y * BLOCK_SIZE );
     switch(c){
         case MARIO: {
-            Mario* mario = new Mario(pixelPos);
+            Mario* mario = new Mario(pixelPos, game);
             game->setMario(mario);
         }
         break;
@@ -72,11 +67,28 @@ void Map::processChar(char c, Point pos) {
             objects->addNormalBlock(normalBlock);
         }
         break;
-        case COIN_BLOCK: {
-            QuestionBlock* coinBlock = new QuestionBlock(pixelPos,
-                COIN_BLOCK);
-            objects->addQuestionBlock(coinBlock);
+        case COIN_BLOCK: 
+        case RED_MUSHROOM_BLOCK: 
+        case HEALTH_BLOCK: {
+            QuestionBlock* qBlock = new QuestionBlock(pixelPos,c);
+            objects->addQuestionBlock(qBlock);
         }
+        break;
+        case SIMPLE_BRICK: {
+            BrickBlock* brickBlock = new BrickBlock(pixelPos);
+            objects->addBrickBlock(brickBlock);
+        }
+        break;
+        case KOOPA_TROOPA: {
+            KoopaTroopa* koopa = new KoopaTroopa(pixelPos);
+            objects->addKoopaTroopa(koopa);
+        }
+        break;
+        case LITTLE_GOOMBA: {
+            LittleGoomba* goomba = new LittleGoomba(pixelPos);
+            objects->addLittleGoomba(goomba);
+        }
+        break;
     }
 }
 
