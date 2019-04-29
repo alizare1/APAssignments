@@ -3,14 +3,19 @@
 using namespace std;
 
 Game::Game(string mapAdress) {
-    collisionHandler = new CollisionHandler();
-    objects = new Objects(collisionHandler);
+    objects = new Objects();
+    collisionHandler = new CollisionHandler(objects);
+    objects->setCollisionHandler(collisionHandler);
     Map map(this, objects);
     map.readMap(mapAdress);
     map.initGameSetup();
     camera = new Camera( WINDOW_WIDTH * BLOCK_SIZE,
        map.getMapHeight() * BLOCK_SIZE, GAME_NAME);
+    sound = new Sound();
+    sound->setCamera(camera);
     gameStep = 0;
+    mario->addSound(sound);
+    collisionHandler->addSound(sound);
 }
 
 
@@ -73,12 +78,16 @@ void Game::resetOffset() {
 void Game::lose() {
     gameRunning = false;
     drawScreen(gameStep);
+    sound->pauseBackgroudnMusic();
+    sound->playGameOver();
     camera->lose();
 }
 
 void Game::win() {
     gameRunning = false;
     drawScreen(gameStep);
+    sound->pauseBackgroudnMusic();
+    sound->playWinEffect();
     camera->won();
 }
 

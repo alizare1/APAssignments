@@ -1,10 +1,11 @@
 #define X_SPEED 10
-#define JUMP_SPEED 45
+#define JUMP_SPEED 40
 #define X_ACCELERATION 1
 #define COIN "COINS:"
 #define LIVES "LIVES:"
 #define FONT "FreeSans.ttf"
-#define DEAD_HAS_LIVES 20
+#define DEAD_HAS_LIVES 50
+#define INVINCIBLE 50
 #define IN_AIR_R 0
 #define IN_AIR_L 1
 #define IDLE_R 0

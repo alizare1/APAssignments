@@ -1,5 +1,7 @@
 #include "Camera.h"
 
+using namespace std;
+
 Camera::Camera(int w, int h, std::string name): win(w, h, name){
     winOffset = backgroundOffset = 0;
 }

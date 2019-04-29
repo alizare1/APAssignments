@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Objects::Objects( CollisionHandler* cl): collisionHandler(cl) {
+Objects::Objects() {
     screenWidth = 0;
 }
 
@@ -13,6 +13,7 @@ void Objects::addPipe(Pipe* pipe) {
 
 void Objects::addFlag(Flag* _flag) {
     flag = _flag;
+    collisionHandler->addFlag(_flag->getPositionPointer());
 }
 
 void Objects::addNormalBlock(NormalBlock* normalBlock) {
@@ -40,7 +41,12 @@ void Objects::addLittleGoomba(LittleGoomba* goomba) {
     collisionHandler->addGoomba(goomba);
 }
 
+void Objects::addMushroom(Mushroom* mushroom) {
+    mushrooms.push_back(mushroom);
+}
+
 void Objects::update() {
+    updateMushrooms();
     updateGoombas();
     updateKoopas();
 }
@@ -53,6 +59,7 @@ void Objects::draw(Window* win, int winOffset, int step) {
     drawFlag(win, winOffset);
     drawGoombas(win, winOffset, step);
     drawKoopas(win, winOffset, step);
+    drawMushrooms(win, winOffset);
 }
 
 void Objects::updateKoopas() {
@@ -65,6 +72,11 @@ void Objects::updateGoombas() {
     for (int i = 0; i < goombas.size(); i++) {
         goombas[i]->update();
     }
+}
+
+void Objects::updateMushrooms() {
+    for (int i = 0; i < mushrooms.size(); i++)
+        mushrooms[i]->update();
 }
 
 void Objects::drawNormalBlocks(Window* win, int winOffset) {
@@ -105,6 +117,15 @@ void Objects::drawGoombas(Window* win, int winOffset, int step) {
     }
 }
 
+void Objects::drawMushrooms(Window* win, int winOffset) {
+    for (int i = 0; i < mushrooms.size(); i++)
+        mushrooms[i]->draw(win, winOffset);
+}
+
 void Objects::setScreenWith(int w) {
     screenWidth = w;
+}
+
+void Objects::setCollisionHandler(CollisionHandler* cl) {
+    collisionHandler = cl;
 }

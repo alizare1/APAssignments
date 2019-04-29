@@ -7,7 +7,9 @@
 #include <string>
 #include "Gravity.h"
 #include "Game.h"
+#include "Mushroom.h"
 #include "MarioDefines.h"
+#include "Sound.h"
 
 class Game;
 
@@ -28,9 +30,11 @@ public:
     void die();
     int getVictoryStatus();
     bool isAlive();
-    void eatMushroom();
+    void eatMushroom(char type);
     void addCoin();
     bool isMarioNormal();
+    void won();
+    void addSound(Sound* _sound);
 
 private:
     void drawHeader(Window* win);
@@ -44,6 +48,7 @@ private:
     bool hasFallenDown();
     void preventGoingLeft();
 
+    Sound* sound;
     Game* game;
     bool big;
     Rectangle position;
@@ -60,6 +65,7 @@ private:
     bool dReleased;
     int dead;
     int frameDelay;
+    int invincible;
 };
 
 #endif

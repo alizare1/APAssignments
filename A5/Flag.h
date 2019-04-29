@@ -11,6 +11,7 @@ class Flag {
 public:
     Flag(Point headPos, int _height);
     void draw(Window* win, int winOffset);
+    Rectangle* getPositionPointer();
 
 private:
     void drawHead(Window* win, int winOffset);

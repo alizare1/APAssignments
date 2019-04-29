@@ -11,12 +11,16 @@
 #include "Objects.h"
 #include "Camera.h"
 #include "Mario.h"
+#include "Sound.h"
 #include "blockSize.h"
 
 #define WINDOW_WIDTH 30
 #define GAME_NAME "Super Mario"
 
 class Mario;
+class Objects;
+class CollisionHandler;
+class Sound;
 
 class Game {
 public:
@@ -37,6 +41,7 @@ private:
     Mario* mario;
     Objects* objects;
     CollisionHandler* collisionHandler;
+    Sound* sound;
     Camera* camera;
     int gameStep;
     bool gameRunning;

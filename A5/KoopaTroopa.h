@@ -8,6 +8,8 @@
 #include "Gravity.h"
 
 #define KOOPA_SPEED 3
+#define KOOPA_DEAD_SPEED 8
+#define KOOPA_DEAD_ANIMATION 5
 
 #define KOOPA_WALKING_R_1 "assets/sprites/enemies/koopa_troopa/walking-right-1.png"
 #define KOOPA_WALKING_R_2 "assets/sprites/enemies/koopa_troopa/walking-right-2.png"
@@ -36,6 +38,9 @@ public:
     bool* getDownCollisionPointer();
     void setVy(int _vy);
     void setVx(int _vx);
+    void die();
+    void dieByKoopa();
+    bool isDead();
 
 private:
     void checkAppeared(int winOffset, int screenWidth);
@@ -48,6 +53,8 @@ private:
     bool collidesDown;
     bool appeared;
     bool dead;
+    int deadAnimitation;
+    bool killedByKoopa;
 };
 
 #endif

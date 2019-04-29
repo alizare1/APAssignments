@@ -5,7 +5,7 @@ using namespace std;
 
 Mario::Mario(Point pos, Game* _game): game(_game),
         position(pos, BLOCK_SIZE, BLOCK_SIZE), initialPosition(position) {
-    coinsCount = vx = vy = ax = frameDelay = dead = 0;
+    coinsCount = vx = vy = ax = frameDelay = dead = invincible = 0;
     livesCount = 3;
     ay = GRAVITY;
     aReleased = dReleased = collidesDown = faceRight = true;
@@ -14,6 +14,8 @@ Mario::Mario(Point pos, Game* _game): game(_game),
 
 void Mario::draw(Window* win, int winOffset, int step) {
     drawHeader(win);
+    if (step % 2 == 0)
+        frameDelay++;
     if (dead != 0) {
         win->draw_img(DEAD_PNG[isMarioNormal()],
             Rectangle(position.x - winOffset, position.y,
@@ -21,9 +23,7 @@ void Mario::draw(Window* win, int winOffset, int step) {
         );
         dead--;
     }
-    if (step % 2 == 0)
-        frameDelay++;
-    if (!collidesDown) {
+    else if (!collidesDown) {
         win->draw_img(JUMP_PNG[isMarioNormal()][faceRight],
             Rectangle(position.x - winOffset, position.y,
             position.w, position.h)
@@ -82,6 +82,7 @@ void Mario::handleKeyPress(char key) {
             if (collidesDown) {
                 vy = -JUMP_SPEED;
                 collidesDown = false;
+                sound->playJump(big);
             }
             break;
     }
@@ -113,6 +114,8 @@ void Mario::handleKeyRelease(char key) {
 }
 
 void Mario::update(){
+    if (invincible)
+        invincible--;
     if (!dead) {
         position.x += vx;
         position.y += vy;
@@ -124,10 +127,10 @@ void Mario::update(){
             die();
     }
     else {
-        position.x += X_SPEED;
-        position.y += 20;
+        position.y += 5;
     }
     if (shouldRevive()) {
+        delay(1000);
         revive();
     }
 }
@@ -148,13 +151,20 @@ void Mario::updateVx() {
 }
 
 void Mario::die() {
-    if (big) 
+    if (invincible)
+        return;
+    if (big) {
+        position = Rectangle(position.x, position.y - BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
         big = false;
+        invincible = INVINCIBLE;
+    }
     else {
         livesCount--;
-
-        if (livesCount != 0) 
+        if (livesCount != 0) {
+            sound->pauseBackgroudnMusic();
+            sound->playDeathEffect();
             dead = DEAD_HAS_LIVES;
+        }
         else 
             game->lose();
     }
@@ -189,6 +199,7 @@ bool* Mario::getDownCollisionPointer() {
 }
 
 void Mario::revive() {
+    sound->continueBackgroundMusic();
     position.x = initialPosition.x;
     position.y = initialPosition.y;
     dead = 0;
@@ -215,18 +226,32 @@ bool Mario::isAlive() {
 }
 
 void Mario::addCoin() {
+    sound->playCoin();
     coinsCount++;
 }
 
-void Mario::eatMushroom() {
-    if (!big) {
-        big = true;
-        position.y -= BLOCK_SIZE;
-        position.h += BLOCK_SIZE;
+void Mario::eatMushroom(char type) {
+    sound->playEatMushroomEffect();
+    if (type == RED_MUSHROOM) {
+        if (!big) {
+            big = true;
+            position.y -= BLOCK_SIZE;
+            position.h += BLOCK_SIZE;
+        }
     }
+    else 
+        livesCount++;
 }
 
 void Mario::preventGoingLeft() {
     if (position.x < game->getWinOffset())
         position.x = game->getWinOffset();
+}
+
+void Mario::won() {
+    game->win();
+}
+
+void Mario::addSound(Sound* _sound) {
+    sound = _sound;
 }

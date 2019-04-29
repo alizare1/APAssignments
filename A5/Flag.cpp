@@ -27,3 +27,7 @@ void Flag::drawBody(Window* win, int winOffset) {
         );
     }
 }
+
+Rectangle* Flag::getPositionPointer() {
+    return &position;
+}

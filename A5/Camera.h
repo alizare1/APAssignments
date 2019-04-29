@@ -1,3 +1,6 @@
+#ifndef CAMERA_H
+#define CAMERA_H
+
 #include "rsdl.hpp"
 #include "string"
 
@@ -34,3 +37,5 @@ private:
     int backgroundOffset;
 
 };
+
+#endif

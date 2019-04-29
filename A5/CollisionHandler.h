@@ -7,6 +7,8 @@
 #include "Mario.h"
 #include "QuestionBlock.h"
 #include "BrickBlock.h"
+#include "Mushroom.h"
+#include "Sound.h"
 #include "LittleGoomba.h"
 
 
@@ -14,14 +16,12 @@
 #define ESTIMATION_X 3
 
 class Mario;
-
-// ----------------- WRITE MOVING COLLISON BY ENEMIES NOT MARIO -----------------
-
-// if have y in common before and after its right or left and vica versa
-// check x and y seperatedly before and after adding V. then compare and decide
+class Sound;
+class Objects;
 
 class CollisionHandler {
 public:
+    CollisionHandler(Objects* _objects);
     enum CollisionType {
         RIGHT,
         LEFT,
@@ -32,12 +32,14 @@ public:
     };
     void setMario(Mario* _mario);
     void addStaticObjects(Rectangle* position);
+    void addFlag(Rectangle* _flag);
     void addNormalBlock(Rectangle* position);
     void addQuestionBlock(QuestionBlock* _QBlock);
     void addBrickBlock(BrickBlock* _brickBlock);
     void addGoomba(LittleGoomba* _goomba);
     void addKoopa(KoopaTroopa* _koopa);
     void handleCollisions();
+    void addSound(Sound* _sound);
 
 private:
     struct ColMario {
@@ -63,7 +65,17 @@ private:
         Rectangle* position;
         bool* collidesDown;
     };
+    struct ColMushroom {
+        Mushroom* mushroom;
+        Rectangle* position;
+        bool* collidesDown;
+    };
 
+    CollisionType collides(Rectangle* mainObj, int vx, int vy, Rectangle* obj);
+    CollisionType movingObjectsCollide(Rectangle* obj2, bool collidesDown2, int vx2, int vy2, Rectangle* obj1, bool collidesDown1, int vx1, int vy1);
+    int getRx(Rectangle* rect);
+    int getBy(Rectangle* rect);
+    void checkWin();
     void handleMarioStaticObjectsCollision();
     void handleMarioQBlocksCollision();
     void handleMarioBricksCollision();
@@ -73,21 +85,33 @@ private:
     void handleGoombasStaticObjsCollision(ColGoomba* goomba);
     void handleGoombasQBlocksCollision(ColGoomba* goomba);
     void handleGoombasBricksCollision(ColGoomba* goomba);
+    void handleGoombaMarioCollision(ColGoomba* goomba);
     void checkKoopas();
     void handleKoopa(ColKoopa* koopa, CollisionType collision);
     void handleKoopasStaticObjsCollision(ColKoopa* koopa);
     void handleKoopasQBlocksCollision(ColKoopa* koopa);
     void handleKoopasBricksCollision(ColKoopa* koopa);
-    CollisionType collides(Rectangle* mainObj, int vx, int vy, Rectangle* obj);
-    int getRx(Rectangle* rect);
-    int getBy(Rectangle* rect);
+    void handleKoopasMarioCollision(ColKoopa* koopa);
+    void checkMushrooms();
+    void handleMushroom(ColMushroom* mushroom, CollisionType collision);
+    void handleMushroomsStaticObjsCollision(ColMushroom* mushroom);
+    void handleMushroomsQBlocksCollision(ColMushroom* mushroom);
+    void handleMushroomsBricksCollision(ColMushroom* mushroom);
+    void handleMushroomMarioCollision(ColMushroom* mushroom);
+    void addNewMushroom(char type, Rectangle Position);
+    void checkKoopasGoombasCollision();
+    void checkKoopaKoopaCollision();
 
+    Objects* objects;
+    Sound* sound;
     ColMario mario;
     std::vector<Rectangle*> staticObjects;
     std::vector<ColQBlock*> questionBlocks;
     std::vector<ColBrickBlock*> brickBlocks;
     std::vector<ColGoomba*> goombas;
-    std::vector<ColKoopa*> koopas;    
+    std::vector<ColKoopa*> koopas; 
+    std::vector<ColMushroom*> mushrooms;
+    Rectangle* flag;   
 };
 
 

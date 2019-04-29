@@ -8,6 +8,7 @@
 #include "Gravity.h"
 
 #define GOOMBA_SPEED 3
+#define DEAD_ANIMATION 10
 
 
 #define GOOMBA_WALK_1 "assets/sprites/enemies/little_goomba/walking-1.png"
@@ -30,6 +31,8 @@ public:
     bool* getDownCollisionPointer();
     void setVy(int _vy);
     void setVx(int _vx);
+    void die();
+    bool isDead();
 
 private:
     void checkAppeared(int winOffset, int screenWidth);
@@ -42,6 +45,7 @@ private:
     bool collidesDown;
     bool appeared;
     bool dead;
+    int deadAnimation;
 };
 
 #endif

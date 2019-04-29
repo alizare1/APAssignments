@@ -29,6 +29,7 @@
 #define LITTLE_GOOMBA 'l'
 
 class Game;
+class Objects;
 
 class Map {
 public:

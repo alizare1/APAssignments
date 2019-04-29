@@ -43,8 +43,6 @@ Rectangle* QuestionBlock::getPositionPointer() {
     return &position;
 }
 
-// return to collision mushroom pointer then collision adds it to itself and objects.
-
 char QuestionBlock::hit() {
     if (!isHit) {
         showHitFrames = 5;
