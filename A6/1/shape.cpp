@@ -15,6 +15,6 @@ void Shape::move(int dx, int dy, int dz) {
 std::ostream& operator<<(std::ostream& out, const Shape* shape) {
     out << "type: " << shape->getType() << ", center: ("
         << shape->x << ", " << shape->y << ", " << shape->z
-        << "), volume: " << shape->volume() << std::endl;
+        << "), volume: " << shape->volume();
     return out;
 }
