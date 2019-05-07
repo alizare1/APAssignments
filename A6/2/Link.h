@@ -8,7 +8,7 @@
 
 class Link : public Data {
 public:
-    Link(int _id, std::string _title, Directory* _parent, Data* _element);
+    Link(int _id, std::string _title, Data* _element);
     void view();
     std::string getType();
 

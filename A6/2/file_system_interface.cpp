@@ -14,3 +14,7 @@ void FileSystemInterface::add_file(int id, std::string title, std::string conten
 void FileSystemInterface::add_link(int id, std::string title, int element_id, int parent_id) {
     fileSystem.addLink(id, title, element_id, parent_id);
 }
+
+void FileSystemInterface::view(int id) {
+    fileSystem.view(id);
+}
