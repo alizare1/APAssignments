@@ -1,6 +1,9 @@
 #ifndef GAME_MANAGER_H
 #define GAME_MANAGER_H
 
+#include "GameManager.h"
+#include <string>
+
 class game_manager
 {
 public:
@@ -11,9 +14,9 @@ public:
 	void add_team_B_defender(int stamina, int dribble, int pass, int defend);
 	void add_team_B_striker(int stamina, int dribble, int pass, int defend);
 	void play();
-	void get_result();
+	std::string get_result();
 private:
-
+	GameManager gameManager;
 };
 
 #endif
