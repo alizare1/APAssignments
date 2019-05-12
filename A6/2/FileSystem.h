@@ -8,6 +8,8 @@
 #include "File.h"
 #include "Link.h"
 #include "defines.h"
+#include "Exceptions.h"
+#include "exception"
 
 class FileSystem {
 public:
@@ -19,7 +21,14 @@ public:
     void view(int id);
 
 private:
-    bool isIdUsed(int id);
+    bool isIdTaken(int id);
+    void validateId(int id);
+    Data* getData(int id);
+    Directory* getParent(int id);
+    bool isDirectory(Data* data);
+    void addToParent(Directory* parent, Data* data);
+    void addData(Data* newData, int parentID);
+    Data* getLinkedData(int elementID);
 
     std::vector<Data*> datas;
 

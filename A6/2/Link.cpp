@@ -1,12 +1,12 @@
 #include "Link.h"
 
-Link::Link(int _id, std::string _title, Directory* _parent, Data* _element)
-    :Data(_id, _title, _parent) {
+Link::Link(int _id, std::string _title, Data* _element)
+    :Data(_id, _title) {
     element = _element;
 }
 
 void Link::view() {
-    std::cout << "Title: " << title << std::endl;
+    std::cout << TITLE << title << std::endl;
     element->view();
 }
 

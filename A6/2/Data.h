@@ -5,7 +5,7 @@
 
 class Data {
 public:
-    Data(int _id, std::string _title, Data* _parent);
+    Data(int _id, std::string _title);
     virtual void view() = 0;
     virtual std::string getType() = 0;
     int getID();
@@ -15,7 +15,6 @@ public:
 protected:
     std::string title;
     int id;
-    Data* parent;
 };
 
 #endif

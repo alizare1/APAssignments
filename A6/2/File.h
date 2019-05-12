@@ -9,7 +9,7 @@
 
 class File : public Data {
 public:
-    File(int _id, std::string _title, std::string _content, Directory* _parent);
+    File(int _id, std::string _title, std::string _content);
     void view();
     std::string getType();
 

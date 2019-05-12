@@ -6,14 +6,17 @@
 #include <string>
 #include <vector>
 #include "defines.h"
+#include "Exceptions.h"
 
 class Directory : public Data {
 public:
-    Directory(int _id, std::string _title, Directory* _parent);
+    Directory(int _id, std::string _title);
     void view();
     std::string getType();
+    void addData(Data* data);
 
 private:
+    bool isTitleTaken(std::string Datatitle);
 
     std::vector<Data*> datas;
 };

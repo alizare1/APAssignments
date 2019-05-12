@@ -2,8 +2,8 @@ CC = g++ -std=c++11
 
 all: 2.out
 
-2.out: main.o file_system_interface.o FileSystem.o Data.o Directory.o File.o Link.o
-	$(CC) main.o FileSystem.o file_system_interface.o Data.o Directory.o File.o Link.o -o 2.out
+2.out: main.o file_system_interface.o FileSystem.o Data.o Directory.o File.o Link.o Exceptions.o
+	$(CC) main.o FileSystem.o file_system_interface.o Data.o Directory.o File.o Link.o Exceptions.o -o 2.out
 
 main.o: main.cpp file_system_interface.h FileSystem.h Data.h Directory.h File.h Link.h
 	$(CC) -c main.cpp
@@ -25,6 +25,9 @@ File.o: File.h File.cpp Data.h Directory.h
 
 Link.o: Link.cpp Link.h Data.h Directory.h
 	$(CC) -c Link.cpp
+
+Exceptions.o: Exceptions.cpp Exceptions.h
+	$(CC) -c Exceptions.cpp
 
 
 

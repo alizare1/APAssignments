@@ -20,6 +20,3 @@ private:
 };
 
 #endif
-
-// a base class with id,title,parent_id. then children: file, link, directory
-// storing them, polymorphism ?

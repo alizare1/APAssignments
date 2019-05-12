@@ -1,9 +1,8 @@
 #include "Data.h"
 
-Data::Data(int _id, std::string _title, Data* _parent) {
+Data::Data(int _id, std::string _title) {
     id = _id;
     title = _title;
-    parent = _parent;
 }
 
 int Data::getID() {

@@ -1,13 +1,13 @@
 #include "File.h"
 
-File::File(int _id, std::string _title, std::string _content, Directory* _parent)
-    :Data(_id, _title, _parent) {
+File::File(int _id, std::string _title, std::string _content)
+    :Data(_id, _title) {
     content = _content;
 }
 
 void File::view() {
-    std::cout << "Title: " << title << std::endl
-        <<  "Content: " << std::endl << content
+    std::cout << TITLE << title << std::endl
+        <<  CONTENT << std::endl << content
         << std::endl;
 }
 
