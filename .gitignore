@@ -1,5 +1,8 @@
 *.o
 *.out
 
+test.cpp
+test.h
+
 .vscode/
 .history
