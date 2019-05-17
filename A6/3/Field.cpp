@@ -1,9 +1,5 @@
 #include "Field.h"
 
-#include <iostream>
-
-Field::Field() {
-}
 
 void Field::addPlayer(Player* player, int position) {
     field[position] = player;

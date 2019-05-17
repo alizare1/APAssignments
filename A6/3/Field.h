@@ -7,7 +7,6 @@
 
 class Field {
 public:
-    Field();
     void addPlayer(Player* player, int position);
     void setBallOwner(Player*);
     Player* getBallOwner();
